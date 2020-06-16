@@ -350,9 +350,21 @@ function runLevel(level, Display) {
 }
 
 async function runGame(plans, Display) {
+  // for里level没有自增，continue不会前往下一关
   for (let level = 0; level < plans.length;) {
+    let timeStart = new Date().getTime();
     let status = await runLevel(new Level(plans[level]),
                                 Display);
+    if(status == "lost") {
+      console.log("remain" + this.app.remain);
+      this.app.remain--;
+      if(this.app.remain > 0) {
+        continue;
+      }
+      else {
+        // let oldScore = ;
+      }
+    }
     if (status == "won") level++;
   }
   console.log("You've won!");

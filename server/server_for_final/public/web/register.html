@@ -1,0 +1,33 @@
+<!doctype html>
+<head>
+  <script src="./tools/vue.js"></script>
+  <style type="text/css">
+    .emptyLines {
+      height: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <form action="/users/register" method="POST">
+      用 户 名：<input type="text" name="username" :value="username" /><br />
+      密    码：<input type="password" name="password" :value="password" /><br />
+      确认密码：<input type="password"  name="password2" :value="password2" /><br />
+      <input type="submit" value="注册" />
+    </form>
+    <div class="emptyLines"></div>
+  </div>
+  
+  <a href="login">已经有账号了？直接登录</a>
+  <script>
+    let app = new Vue({
+      el: "#app",
+      data: {
+        username: "",
+        password: "",
+        password2: ""
+      }
+    })
+  </script>
+</body>

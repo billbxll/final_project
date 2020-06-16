@@ -1,0 +1,59 @@
+<!doctype html>
+<script src="./code/chapter/16_game.js"></script>
+<script src="./code/chapter/17_canvas.js"></script>
+<script src="./code/levels.js"></script>
+<script src="./tools/vue.js"></script>
+
+<link rel="stylesheet" href="./css/game.css">
+
+<body>
+  <script>
+    let getCookie = function(name) {
+      let strCookie = document.cookie;
+      // 用map把cookie每个字段首尾的空格去掉
+      let arrayCookie = strCookie.split(";").map(str => str.trim());
+      for(let cookie of arrayCookie) {
+        let item = cookie.split("=");
+        if(item[0] == name) {
+          return item[1];
+        }
+      }
+    }
+    let removeCookie = function(name) {
+      let expireTime = new Date();
+      expireTime.setTime(expireTime.getTime() - 10);
+      
+      // if(value != null) {
+        document.cookie = name + "=;expires="+ expireTime.toGMTString();
+      // }
+    }
+
+    let userInfo = getCookie("userInfo");
+    console.log("cookie = " + userInfo);
+    let username, highscore;
+    // username = "abc"
+    // 如果没有登录，username为空，会跳转到登录页面
+    if(userInfo == null) {
+      window.location.href = "login"
+    }
+    // 能从cookie取到用户信息的话，就是已经登录了，就不会跳转
+    else {
+      username = userInfo.username;
+      highscore = userInfo.highscore;
+      runGame(GAME_LEVELS, CanvasDisplay);
+    }
+    
+  </script>
+  <script>
+    let app = new Vue({
+      data: {
+        remain: 3
+      }
+    })
+  </script>
+  <div>
+    <form action="/users/logout" method="POST">
+      <input type="submit" value="注销" />
+    </form>
+  </div>
+</body>
